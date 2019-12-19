@@ -8,22 +8,40 @@ namespace BusinessLayer.Services
 {
     public static class Mapper
     {
-        public static EmailAddress destination1 = new EmailAddress();
-        public static EmailAddress MapToDB(object source1)
+        public static EmailAddress destinationObject = new EmailAddress();
+        public static EmailAddress MapToEmailAddressDB(object source)
         {
-            Type sourceObject1 = source1.GetType();
-            Type destinationtype1 = destination1.GetType();
-            var source1Properties = sourceObject1.GetProperties();
-            var destinationProperties1 = destinationtype1.GetProperties();
-            var commonproperties1 = from sp in source1Properties
-                                    join dp in destinationProperties1 on new { sp.Name, sp.PropertyType } equals
-                                        new { dp.Name, dp.PropertyType }
-                                    select new { sp, dp };
-            foreach (var match in commonproperties1)
+            Type sourceObject = source.GetType();
+            Type destination = destinationObject.GetType();
+            var sourceProperties = sourceObject.GetProperties();
+            var destinationProperties = destination.GetProperties();
+            var commonProperties = from sp in sourceProperties
+                                   join dp in destinationProperties on new { sp.Name, sp.PropertyType } equals
+                                       new { dp.Name, dp.PropertyType }
+                                   select new { sp, dp };
+            foreach (var match in commonProperties)
             {
-                match.dp.SetValue(destination1, match.sp.GetValue(source1, null), null);
+                match.dp.SetValue(destinationObject, match.sp.GetValue(source, null), null);
             }
-            return (destination1);
+            return (destinationObject);
+
+        }
+        public static void MapFromObjectToObject(object sourceFrom, Object sourceTo)
+        {
+            Type sourceObject = sourceFrom.GetType();
+            Type destinationObject = sourceTo.GetType();
+            var sourceProperties = sourceObject.GetProperties();
+            var destinationProperties = destinationObject.GetProperties();
+            var commonProperties = from sp in sourceProperties
+                                   join dp in destinationProperties on new { sp.Name, sp.PropertyType } equals
+                                       new { dp.Name, dp.PropertyType }
+                                   select new { sp, dp };
+            foreach (var match in commonProperties)
+            {
+                match.dp.SetValue(sourceTo, match.sp.GetValue(sourceFrom, null), null);
+            }
+
         }
     }
+
 }

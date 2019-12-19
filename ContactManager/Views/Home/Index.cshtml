@@ -4,7 +4,6 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
-
 <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
     FirstName: <input type="text" name="fn">
     LastName: <input type="text" name="ln">
@@ -15,23 +14,12 @@
     </select>
     <button type="button" id="buttonSubmit">Submit</button>
 </form>
-
 <table id="Details" class="minimalistBlack">
     <tr>
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th>Email Type</th>
+        <th contenteditable="true">Email Type</th>
     </tr>
-    @*<tbody>
-            <tr id="id">
-                <td class="id" contenteditable="true"> </td>
-                <td class="fn" contenteditable="true"></td>
-                <td class="ln" contenteditable="true"></td>
-                <td class=" email" contenteditable="true"> </td>
-                <td class="emailT" contenteditable="true"></td>
-                <td><button type="button" id="buttonSubmit">Submit</button></td>
-            </tr>
-        </tbody>*@
 </table>

@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿//Add
+$(document).ready(function () {
     $("#buttonSubmit").click(function (e) {
         var fn = document.forms["myForm"]["fn"].value;
         var ln = document.forms["myForm"]["ln"].value;
@@ -29,7 +30,7 @@
             }
         });
     });
-});
+});//GetAllRecords
 $(document).ready(function () {
     var data = [];
     $.ajax({
@@ -40,8 +41,54 @@ $(document).ready(function () {
         success: function (data) {
             var row = '';
             $.each(data, function (index, obj) {
-                row += '<tr><td> ' + obj.contactID + ' </td> <td> ' + obj.firstName + ' </td> <td>' + obj.lastName + '</td> <td>' + obj.email + '</td><td>' + obj.emailT + '</td> </tr>';
+                row += '<tr><td class=id> ' + obj.contactID + ' </td> <td contenteditable="true" class=fn> ' + obj.firstName + ' </td> <td contenteditable="true"class=ln>' + obj.lastName + '</td> <td contenteditable="true"class=email>' + obj.email + '</td><td contenteditable="true" class=emailT>' + obj.emailT + '</td><td>' + '<button type="button"  onclick="buttonDelete(this)">Delete</button>' + '</td><td>' + '<button type="button"  onclick="buttonUpdate(this)">Update</button>' + '</td></tr>';
             }); $("#Details").append(row);
         }
     });
-});
+});//Delete
+function buttonDelete(e) {
+    var id = $(e).closest('tr').find('.id').text();
+    $(e).closest('tr').remove();
+    var data = {
+        ContactID: id
+    };
+    $.ajax({
+        url: '/api/ContactAndEmail/Delete',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'Post',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function (data) {
+            console.log('succes: ' + data);
+        }
+    });
+}//Update
+function buttonUpdate(e) {
+    var id = $(e).closest('tr').find('.id').text();
+    var fn = $(e).closest('tr').find('.fn').text();
+    var ln = $(e).closest('tr').find('.ln').text();
+    var email = $(e).closest('tr').find('.email').text();
+    var emailT = $(e).closest('tr').find('.emailT').text();
+    var data = {
+        ContactID: id,
+        EmailAddress: email,
+        FirstName: fn,
+        LastName: ln,
+        Email: email,
+        EmailType: emailT
+    };
+    $.ajax({
+        url: '/api/ContactAndEmail/Update',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'Post',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function (data) {
+            console.log('succes: ' + data);
+        }
+    });
+}

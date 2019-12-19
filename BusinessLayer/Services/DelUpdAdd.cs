@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace BusinessLayer.Services
 {
-    public class BusLayer
+    public class DelUpdAdd
     {
         private static ContextDB dataBase = new ContextDB();
         public static IEnumerable GetAllRecords()
@@ -22,15 +22,16 @@ namespace BusinessLayer.Services
         }
         public static void Delete(int id)
         {
-            var customerDB = dataBase.Contacts.FindAsync(id);
-            Contact customer = new Contact();
-            customer.ContactID = id;
-            dataBase.Contacts.Remove(customer);
+            EmailAddress email = new EmailAddress();
+            Contact contact = dataBase.Contacts.Find(id);
+            dataBase.Contacts.Remove(contact);
             dataBase.SaveChanges();
         }
-        public static void Update(Contact customerDB)
+        public static void Update(Contact contact, int id)
         {
-            dataBase.Update(customerDB);
+            Contact c = dataBase.Contacts.Find(id);
+            Mapper.MapFromObjectToObject(contact, c);
+            dataBase.Contacts.Update(c);
             dataBase.SaveChanges();
         }
         public static object Create(Contact contact, EmailAddress email)
