@@ -1,5 +1,6 @@
 ﻿using DataLayer.Data;
 using DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,11 +28,12 @@ namespace BusinessLayer.Services
             dataBase.Contacts.Remove(contact);
             dataBase.SaveChanges();
         }
-        public static void Update(Contact contact, int id)
+        public static void Update(Contact contact, EmailAddress email)
         {
-            Contact c = dataBase.Contacts.Find(id);
-            Mapper.MapFromObjectToObject(contact, c);
-            dataBase.Contacts.Update(c);
+            Contact c = dataBase.Contacts.Find(contact.ContactID);
+            EmailAddress e = dataBase.Emails.Find(email.ContactID);
+            dataBase.Entry(c).CurrentValues.SetValues(contact);
+            dataBase.Entry(e).CurrentValues.SetValues(email);
             dataBase.SaveChanges();
         }
         public static object Create(Contact contact, EmailAddress email)

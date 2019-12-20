@@ -29,8 +29,9 @@ namespace ContactManager.Controllers
         [HttpPost("Update")]
         public void Update(object contact)
         {
+            EmailAddress e = JsonConvert.DeserializeObject<EmailAddress>(contact.ToString());
             Contact c = JsonConvert.DeserializeObject<Contact>(contact.ToString());
-            DelUpdAdd.Update(c, c.ContactID);
+            DelUpdAdd.Update(c, e);
         }
         // Delete
         [HttpPost("Delete")]
