@@ -18,7 +18,7 @@ namespace BusinessLayer.Services
                         where p.ContactID != 0
                         from r in result2
                         where r.ContactID == p.ContactID
-                        select new { p.ContactID, emailT = p.EmailType.ToString(), p.Email, r.FirstName, r.LastName };
+                        select new { p.EmailID, p.ContactID, emailT = p.EmailType.ToString(), p.Email, r.FirstName, r.LastName };
             return (query.ToList());
         }
         public static void Delete(int id)
