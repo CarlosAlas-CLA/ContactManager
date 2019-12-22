@@ -49,7 +49,7 @@ namespace BusinessLayer.Services
                         where p.ContactID == contact.ContactID
                         from r in result2
                         where r.ContactID == p.ContactID
-                        select new { p.ContactID, emailT = p.EmailType.ToString(), p.Email, r.FirstName, r.LastName };
+                        select new { p.EmailID, p.ContactID, emailT = p.EmailType.ToString(), p.Email, r.FirstName, r.LastName };
             return query;
         }
     }

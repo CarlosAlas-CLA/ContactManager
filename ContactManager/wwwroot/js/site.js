@@ -6,6 +6,7 @@ $(document).ready(function () {
         var email = document.forms["myForm"]["email"].value;
         var emailT = document.forms["myForm"]["emailT"].value;
         var data = {
+            EmailID: 0,
             ContactID: 0,
             EmailAddresses: '',
             FirstName: fn,
@@ -24,7 +25,13 @@ $(document).ready(function () {
             success: function (data) {
                 var row = '';
                 $.each(data, function (index, obj) {
-                    row += '<tr><td> ' + obj.contactID + ' </td> <td> ' + obj.firstName + ' </td> <td>' + obj.lastName + '</td> <td>' + obj.email + '</td><td>' + obj.emailT + '</td> </tr>';
+                    row += '<tr><td  class=id> ' + obj.contactID + ' </td> <td contenteditable="true" class=fn> '
+                        + obj.firstName + ' </td> <td contenteditable="true"class=ln>'
+                        + obj.lastName + '</td> <td contenteditable="true"class=email>'
+                        + obj.email + '</td><td  class=emailT  >'
+                        + obj.emailT + '</td><td>' + '<button type="button"  onclick="buttonDelete(this)">Delete</button>'
+                        + '</td><td>' + '<button type="button"  onclick="buttonUpdate(this)">Update</button>'
+                        + '</td><td class=idE hidden="hidden">' + obj.emailID + '</td></tr>';
                 }); $("#Details").append(row);
                 console.log('succes: ' + data);
             }
@@ -41,8 +48,13 @@ $(document).ready(function () {
         success: function (data) {
             var row = '';
             $.each(data, function (index, obj) {
-                row += '<tr><td  class=id> ' + obj.contactID + ' </td> <td contenteditable="true" class=fn> ' + obj.firstName + ' </td> <td contenteditable="true"class=ln>' + obj.lastName + '</td> <td contenteditable="true"class=email>' + obj.email + '</td><td contenteditable="true" class=emailT  >' + obj.emailT + '</td><td>' + '<button type="button"  onclick="buttonDelete(this)">Delete</button>' + '</td><td>' + '<button type="button"  onclick="buttonUpdate(this)">Update</button>' + '</td><td class=idE hidden="hidden">' + obj.emailID + '</td></tr>';
-
+                row += '<tr><td  class=id> ' + obj.contactID + ' </td> <td contenteditable="true" class=fn> '
+                    + obj.firstName + ' </td> <td contenteditable="true"class=ln>'
+                    + obj.lastName + '</td> <td contenteditable="true"class=email>'
+                    + obj.email + '</td><td id=emailType class=emailT>'
+                    + obj.emailT + '</td><td>' + '<button type="button"  onclick="buttonDelete(this)">Delete</button>'
+                    + '</td><td>' + '<button type="button"  onclick="buttonUpdate(this)">Update</button>'
+                    + '</td><td class=idE hidden="hidden">' + obj.emailID + '</td></tr>';
             }); $("#Details").append(row);
         }
     });

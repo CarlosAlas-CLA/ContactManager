@@ -7,10 +7,10 @@
 <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
     FirstName: <input type="text" name="fn">
     LastName: <input type="text" name="ln">
-    EmailAdre:     <input type="text" name="email">
+    EmailAddress:     <input type="text" name="email">
     EmailType:<select id="mySelect" name="emailT">
-        <option>Business</option>
-        <option>Personal</option>
+        <option value="0">Personal</option>
+        <option value="1">Business</option>
     </select>
     <button type="button" id="buttonSubmit">Submit</button>
 </form>
